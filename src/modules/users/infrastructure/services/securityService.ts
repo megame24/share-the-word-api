@@ -14,13 +14,13 @@ export class SecurityServiceImplementation implements SecurityService {
 
   constructor(private bcrypt: Bcrypt) {}
 
-  async hash(plaintext: string): Promise<string> {
-    const hash = await this.bcrypt.hash(plaintext, this.saltRounds);
-    return hash;
+  hash(plaintext: string): Promise<string> {
+    return this.bcrypt.hash(plaintext, this.saltRounds);
+    // return hash;
   }
 
-  async compare(plainText: string, hash: string): Promise<boolean> {
-    const isEqual = await this.bcrypt.compare(plainText, hash);
-    return isEqual;
+  compare(plainText: string, hash: string): Promise<boolean> {
+    return this.bcrypt.compare(plainText, hash);
+    // return isEqual;
   }
 }
