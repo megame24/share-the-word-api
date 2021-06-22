@@ -135,35 +135,31 @@ export default class User {
   }
 
   static async create(
-    props: UserProps,
+    userProps: UserProps,
     errorService: ErrorService,
     securityService: SecurityService,
     uuidService: UUIDService
   ): Promise<User> {
+    const props = { ...userProps };
+
     if (!props.id) {
       props.id = uuidService.generate();
     }
-
     this.validateProp(props.name, this.validateName, errorService);
-
     this.validateProp(props.email, this.validateEmail, errorService);
     props.email = this.formatEmail(props.email);
-
     this.validateProp(props.username, this.validateUsername, errorService);
-
     if ("password" in props) {
       this.validateProp(props.password, this.validatePassword, errorService);
     }
     if (props.password) {
       props.password = await securityService.hash(props.password);
     }
-
     if (props.role) {
       this.validateProp(props.role, this.validateRole, errorService);
     } else {
       props.role = Role.USER;
     }
-
     if (!props.verified) {
       props.verified = false;
     }
