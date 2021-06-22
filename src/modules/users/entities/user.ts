@@ -13,8 +13,7 @@ export interface UserProps {
   name: string;
   email: string;
   username: string;
-  password: string;
-  isPasswordHashed: boolean;
+  password?: string;
   role?: Role;
   verified?: boolean;
 }
@@ -48,12 +47,16 @@ export default class User {
     return this.props.username;
   }
 
-  get password(): string {
+  get password(): string | undefined {
     return this.props.password;
   }
 
   get role(): Role | undefined {
     return this.props.role;
+  }
+
+  isVerified(): boolean | undefined {
+    return this.props.verified;
   }
 
   private static validateName(name: string): ValidationResult {
@@ -73,7 +76,7 @@ export default class User {
     if (!email) {
       return { isValid: false, message: "Email is required" };
     }
-    if (!this.emailRegEx.test(email)) {
+    if (!User.emailRegEx.test(email)) {
       return { isValid: false, message: "Invalid email" };
     }
     return { isValid: true, message: "" };
@@ -96,15 +99,18 @@ export default class User {
     return { isValid: true, message: "" };
   }
 
-  private static validatePassword(password: string): ValidationResult {
+  private static validatePassword(
+    password: string | undefined
+  ): ValidationResult {
     if (!password) {
       return { isValid: false, message: "Password is required" };
     }
-    if (this.passwordRegEx.test(password)) {
+    if (!User.passwordRegEx.test(password)) {
       return {
         isValid: false,
-        message: `Your password must be greater than 8 characters and must contain at least one 
-          uppercase letter, one lowercase letter, one number, and a special character`,
+        message:
+          "Your password must be greater than 8 characters and must contain at least one " +
+          "uppercase letter, one lowercase letter, one number, and a special character",
       };
     }
     return { isValid: true, message: "" };
@@ -134,22 +140,32 @@ export default class User {
     securityService: SecurityService,
     uuidService: UUIDService
   ): Promise<User> {
+    if (!props.id) {
+      props.id = uuidService.generate();
+    }
+
     this.validateProp(props.name, this.validateName, errorService);
+
     this.validateProp(props.email, this.validateEmail, errorService);
+    props.email = this.formatEmail(props.email);
+
     this.validateProp(props.username, this.validateUsername, errorService);
-    this.validateProp(props.password, this.validatePassword, errorService);
+
+    if ("password" in props) {
+      this.validateProp(props.password, this.validatePassword, errorService);
+    }
+    if (props.password) {
+      props.password = await securityService.hash(props.password);
+    }
+
     if (props.role) {
       this.validateProp(props.role, this.validateRole, errorService);
     } else {
       props.role = Role.USER;
     }
 
-    props.email = this.formatEmail(props.email);
-    if (!props.isPasswordHashed) {
-      props.password = await securityService.hash(props.password);
-    }
-    if (!props.id) {
-      props.id = uuidService.generate();
+    if (!props.verified) {
+      props.verified = false;
     }
 
     return new User(props);
