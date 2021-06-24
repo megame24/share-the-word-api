@@ -30,9 +30,10 @@ const validUserProps = {
   email: "test@test.com",
   username: "test124",
   password: "P@ssw0rd",
+  role: "USER",
 };
 
-const createUser = (userProps: UserProps) => {
+const createUser = (userProps: any) => {
   return User.create(
     userProps,
     errorServiceImplementation,
@@ -41,7 +42,7 @@ const createUser = (userProps: UserProps) => {
   );
 };
 
-describe("Testing creating a user entity", () => {
+describe("Creating a user entity", () => {
   it("Should throw an error if name is not provided", async () => {
     const invalidUserProps = { ...validUserProps, name: "" };
     let user;
@@ -205,6 +206,20 @@ describe("Testing creating a user entity", () => {
     );
     expect(user).toBeUndefined();
   });
+  it("Should throw an error if an invalid role is provided", async () => {
+    const invalidUserProps = { ...validUserProps, role: "SUPER AWESOME USER" };
+    let user;
+    let error;
+
+    try {
+      user = await createUser(invalidUserProps);
+    } catch (err) {
+      error = err;
+    }
+
+    expect(error.message).toEqual("Invalid role");
+    expect(user).toBeUndefined();
+  });
   it("Should create the user successfully when all checks pass", async () => {
     let user: any;
     let error;
@@ -219,6 +234,31 @@ describe("Testing creating a user entity", () => {
     expect(user.name).toEqual(validUserProps.name);
     expect(user.email).toEqual(validUserProps.email);
     expect(user.password).toEqual(`hashed-${validUserProps.password}`);
+    expect(user.username).toEqual(validUserProps.username);
+    expect(user.role).toEqual("USER");
+    expect(user.isVerified()).toEqual(false);
+    expect(error).toBeUndefined();
+  });
+  it("Password should be optional when creating a user", async () => {
+    let user: any;
+    let error;
+
+    try {
+      user = await createUser({
+        name: validUserProps.name,
+        username: validUserProps.username,
+        email: validUserProps.email,
+      });
+    } catch (err) {
+      error = err;
+    }
+
+    expect(user.id).toEqual("this_is_a_random_uuid");
+    expect(user.name).toEqual(validUserProps.name);
+    expect(user.email).toEqual(validUserProps.email);
+    expect(user.username).toEqual(validUserProps.username);
+    expect(user.role).toEqual("USER");
+    expect(user.isVerified()).toEqual(false);
     expect(error).toBeUndefined();
   });
 });
