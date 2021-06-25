@@ -1,4 +1,4 @@
-import User, { UserProps } from "./user";
+import User from "./user";
 import sharedServices from "../../shared/infrastructure/services";
 import { SecurityService } from "../infrastructure/services/securityService";
 import { UUIDService } from "../infrastructure/services/uuidService";
