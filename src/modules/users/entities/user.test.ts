@@ -1,9 +1,6 @@
 import User from "./user";
-import sharedServices from "../../shared/infrastructure/services";
 import { SecurityService } from "../infrastructure/services/securityService";
 import { UUIDService } from "../infrastructure/services/uuidService";
-
-const { errorServiceImplementation } = sharedServices;
 
 class SecurityServiceImplementation implements SecurityService {
   hash(plaintext: string): Promise<string> {
@@ -36,7 +33,6 @@ const validUserProps = {
 const createUser = (userProps: any) => {
   return User.create(
     userProps,
-    errorServiceImplementation,
     new SecurityServiceImplementation(),
     new UUIDServiceImplementation()
   );

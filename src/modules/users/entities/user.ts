@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { ErrorService } from "../../shared/infrastructure/services/errorService";
+import AppError from "../../shared/core/AppError";
 import { SecurityService } from "../infrastructure/services/securityService";
 import { UUIDService } from "../infrastructure/services/uuidService";
 
@@ -125,18 +125,16 @@ export default class User {
 
   private static validateProp<T>(
     prop: T,
-    validator: (prop: T) => ValidationResult,
-    errorService: ErrorService
+    validator: (prop: T) => ValidationResult
   ) {
     const validationResult = validator(prop);
     if (!validationResult.isValid) {
-      throw errorService.badRequestError(validationResult.message);
+      throw AppError.badRequestError(validationResult.message);
     }
   }
 
   static async create(
     userProps: UserProps,
-    errorService: ErrorService,
     securityService: SecurityService,
     uuidService: UUIDService
   ): Promise<User> {
@@ -145,18 +143,18 @@ export default class User {
     if (!props.id) {
       props.id = uuidService.generate();
     }
-    this.validateProp(props.name, this.validateName, errorService);
-    this.validateProp(props.email, this.validateEmail, errorService);
+    this.validateProp(props.name, this.validateName);
+    this.validateProp(props.email, this.validateEmail);
     props.email = this.formatEmail(props.email);
-    this.validateProp(props.username, this.validateUsername, errorService);
+    this.validateProp(props.username, this.validateUsername);
     if ("password" in props) {
-      this.validateProp(props.password, this.validatePassword, errorService);
+      this.validateProp(props.password, this.validatePassword);
     }
     if (props.password) {
       props.password = await securityService.hash(props.password);
     }
     if (props.role) {
-      this.validateProp(props.role, this.validateRole, errorService);
+      this.validateProp(props.role, this.validateRole);
     } else {
       props.role = Role.USER;
     }
