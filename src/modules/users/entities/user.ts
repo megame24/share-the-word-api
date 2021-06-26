@@ -130,7 +130,7 @@ export default class User {
   ) {
     const validationResult = validator(prop);
     if (!validationResult.isValid) {
-      errorService.throwError(validationResult.message, 400);
+      throw errorService.badRequestError(validationResult.message);
     }
   }
 
