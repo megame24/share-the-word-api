@@ -240,11 +240,19 @@ describe("Creating a user entity", () => {
     let error;
 
     try {
-      user = await createUser({
-        name: validUserProps.name,
-        username: validUserProps.username,
-        email: validUserProps.email,
-      });
+      user = await User.create(
+        {
+          name: validUserProps.name,
+          username: validUserProps.username,
+          email: validUserProps.email,
+        },
+        new SecurityServiceImplementation(),
+        new UUIDServiceImplementation(),
+        {
+          isPasswordHashed: false,
+          isPasswordRequired: false,
+        }
+      );
     } catch (err) {
       error = err;
     }
