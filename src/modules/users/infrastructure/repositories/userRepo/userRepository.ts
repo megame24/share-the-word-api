@@ -4,6 +4,8 @@ export interface UserRepo {
 }
 
 export class UserRepoImplementation implements UserRepo {
+  constructor(private models: any) {}
+
   emailExist(email: string) {
     return true;
   }

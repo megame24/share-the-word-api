@@ -13,6 +13,8 @@
   "rules": {
     "object-curly-spacing": 0,
     "require-jsdoc": 0,
+    "explicit-module-boundary-types": "off",
+    "no-explicit-any": "off",
     "max-len": ["error", { "code": 80 }]
   }
 }
