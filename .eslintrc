@@ -13,8 +13,8 @@
   "rules": {
     "object-curly-spacing": 0,
     "require-jsdoc": 0,
-    "explicit-module-boundary-types": "off",
-    "no-explicit-any": "off",
-    "max-len": ["error", { "code": 80 }]
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "max-len": 0
   }
 }

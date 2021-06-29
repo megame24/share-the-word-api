@@ -1,16 +1,23 @@
+import { UserProps } from "../../../entities/user";
+
 export interface UserRepo {
-  emailExist: (email: string) => boolean;
-  usernameExist: (username: string) => boolean;
+  emailExists: (email: string) => boolean;
+  usernameExists: (username: string) => boolean;
+  create: (user: UserProps) => void;
 }
 
 export class UserRepoImplementation implements UserRepo {
   constructor(private models: any) {}
 
-  emailExist(email: string) {
+  emailExists(email: string) {
     return true;
   }
 
-  usernameExist(username: string) {
+  usernameExists(username: string) {
     return true;
+  }
+
+  create(user: UserProps) {
+    console.log(user);
   }
 }
