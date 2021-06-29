@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import AppError from "../../shared/core/AppError";
 import { SecurityService } from "../infrastructure/services/securityService";
 import { UUIDService } from "../infrastructure/services/uuidService";
