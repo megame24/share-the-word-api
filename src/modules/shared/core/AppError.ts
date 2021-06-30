@@ -18,7 +18,7 @@ export default class AppError extends Error {
     return new AppError(message, 403);
   }
 
-  static internalServerError(message: string): AppError {
+  static internalServerError(message = "Internal server error"): AppError {
     return new AppError(message, 500);
   }
 }

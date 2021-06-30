@@ -3,12 +3,14 @@ import { SecurityService } from "../infrastructure/services/securityService";
 import { UUIDService } from "../infrastructure/services/uuidService";
 
 class SecurityServiceImplementation implements SecurityService {
+  // explore changing this to jest mock function
   hash(plaintext: string): Promise<string> {
     return new Promise((resolve, reject) => {
       resolve(`hashed-${plaintext}`);
     });
   }
 
+  // explore changing this to jest mock function
   compare(plaintext: string, hash: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       resolve(true);
@@ -16,7 +18,7 @@ class SecurityServiceImplementation implements SecurityService {
   }
 }
 
-class UUIDServiceImplementation implements Partial<UUIDService> {
+class UUIDServiceImplementation implements UUIDService {
   generate(): string {
     return "this_is_a_random_uuid";
   }
