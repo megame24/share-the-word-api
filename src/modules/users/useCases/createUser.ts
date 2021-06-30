@@ -4,34 +4,34 @@ import { SecurityService } from "../infrastructure/services/securityService";
 import { UUIDService } from "../infrastructure/services/uuidService";
 import { UserRepo } from "../infrastructure/repositories/userRepo/userRepository";
 
-interface RegisterUserDTO {
+interface createUserDTO {
   username: string;
   email: string;
   password: string;
   name: string;
 }
 
-export default class registerUser {
+export default class CreateUser {
   constructor(
     private securityService: SecurityService,
     private uuidService: UUIDService,
     private userRepo: UserRepo
   ) {}
 
-  async execute(registerUserDTO: RegisterUserDTO) {
-    const emailExists = await this.userRepo.emailExists(registerUserDTO.email);
+  async execute(createUserDTO: createUserDTO) {
+    const emailExists = await this.userRepo.emailExists(createUserDTO.email);
     if (emailExists) {
       throw AppError.badRequestError("User with that email already exists");
     }
-    const usernameExists = this.userRepo.usernameExists(
-      registerUserDTO.username
+    const usernameExists = await this.userRepo.usernameExists(
+      createUserDTO.username
     );
     if (usernameExists) {
       throw AppError.badRequestError("User with that username already exists");
     }
 
     const user = await User.create(
-      registerUserDTO,
+      createUserDTO,
       this.securityService,
       this.uuidService
     );

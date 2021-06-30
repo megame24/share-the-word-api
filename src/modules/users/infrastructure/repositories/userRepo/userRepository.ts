@@ -1,23 +1,44 @@
+import AppError from "../../../../shared/core/AppError";
 import { UserProps } from "../../../entities/user";
 
 export interface UserRepo {
-  emailExists: (email: string) => boolean;
-  usernameExists: (username: string) => boolean;
+  emailExists: (email: string) => Promise<boolean>;
+  usernameExists: (username: string) => Promise<boolean>;
   create: (user: UserProps) => void;
 }
 
 export class UserRepoImplementation implements UserRepo {
-  constructor(private models: any) {}
+  constructor(private UserModel: any) {}
 
-  emailExists(email: string) {
-    return true;
+  async emailExists(email: string): Promise<boolean> {
+    try {
+      const user = await this.UserModel.findOne({
+        where: { email },
+      });
+      if (!user) return false;
+      return true;
+    } catch (error) {
+      throw AppError.internalServerError();
+    }
   }
 
-  usernameExists(username: string) {
-    return true;
+  async usernameExists(username: string): Promise<boolean> {
+    try {
+      const user = await this.UserModel.findOne({
+        where: { username },
+      });
+      if (!user) return false;
+      return true;
+    } catch (error) {
+      throw AppError.internalServerError();
+    }
   }
 
-  create(user: UserProps) {
-    console.log(user);
+  async create(user: UserProps) {
+    try {
+      await this.UserModel.create(user);
+    } catch (error) {
+      throw AppError.internalServerError();
+    }
   }
 }
