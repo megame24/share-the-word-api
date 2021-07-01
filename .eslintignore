@@ -5,3 +5,4 @@ coverage/*
 **/*.test.ts
 src/types
 jest.config.js
+**/database

@@ -64,7 +64,7 @@ export default class User {
     return this.props.role;
   }
 
-  isVerified(): boolean | undefined {
+  get verified(): boolean | undefined {
     return this.props.verified;
   }
 
