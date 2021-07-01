@@ -234,7 +234,7 @@ describe("Creating a user entity", () => {
     expect(user.password).toEqual(`hashed-${validUserProps.password}`);
     expect(user.username).toEqual(validUserProps.username);
     expect(user.role).toEqual("USER");
-    expect(user.isVerified()).toEqual(false);
+    expect(user.verified).toEqual(false);
     expect(error).toBeUndefined();
   });
   it("Password should be optional when creating a user", async () => {
@@ -264,7 +264,7 @@ describe("Creating a user entity", () => {
     expect(user.email).toEqual(validUserProps.email);
     expect(user.username).toEqual(validUserProps.username);
     expect(user.role).toEqual("USER");
-    expect(user.isVerified()).toEqual(false);
+    expect(user.verified).toEqual(false);
     expect(error).toBeUndefined();
   });
 });
