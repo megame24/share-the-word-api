@@ -1,5 +1,5 @@
-import AppError from "../../../../shared/core/AppError";
-import { UserProps } from "../../../entities/user";
+import AppError from "../../../shared/core/AppError";
+import { UserProps } from "../../entities/user";
 
 export interface UserRepo {
   emailExists: (email: string) => Promise<boolean>;
@@ -10,7 +10,7 @@ export interface UserRepo {
 export class UserRepoImplementation implements UserRepo {
   constructor(private UserModel: any) {}
 
-  async emailExists(email: string): Promise<boolean> {
+  async emailExists(email = ""): Promise<boolean> {
     try {
       const user = await this.UserModel.findOne({
         where: { email },
@@ -18,11 +18,12 @@ export class UserRepoImplementation implements UserRepo {
       if (!user) return false;
       return true;
     } catch (error) {
+      console.log(error); // use a better logger
       throw AppError.internalServerError();
     }
   }
 
-  async usernameExists(username: string): Promise<boolean> {
+  async usernameExists(username = ""): Promise<boolean> {
     try {
       const user = await this.UserModel.findOne({
         where: { username },
@@ -30,6 +31,7 @@ export class UserRepoImplementation implements UserRepo {
       if (!user) return false;
       return true;
     } catch (error) {
+      console.log(error); // use a better logger
       throw AppError.internalServerError();
     }
   }
@@ -38,6 +40,7 @@ export class UserRepoImplementation implements UserRepo {
     try {
       await this.UserModel.create(user);
     } catch (error) {
+      console.log(error); // use a better logger
       throw AppError.internalServerError();
     }
   }

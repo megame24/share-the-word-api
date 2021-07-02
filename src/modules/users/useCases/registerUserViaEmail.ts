@@ -2,9 +2,9 @@ import User from "../entities/user";
 import AppError from "../../shared/core/AppError";
 import { SecurityService } from "../infrastructure/services/securityService";
 import { UUIDService } from "../infrastructure/services/uuidService";
-import { UserRepo } from "../infrastructure/repositories/userRepositories/userRepository";
+import { UserRepo } from "../infrastructure/repositories/userRepository";
 
-interface registerUserDTO {
+export interface registerUserDTO {
   username: string;
   email: string;
   password: string;
@@ -38,6 +38,15 @@ export default class RegisterUserViaEmail {
       this.securityService,
       this.uuidService
     );
-    await this.userRepo.create(user);
+
+    await this.userRepo.create({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      username: user.username,
+      password: user.password,
+      role: user.role,
+      verified: user.verified,
+    });
   }
 }
