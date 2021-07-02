@@ -1,10 +1,10 @@
 import userServices from "../infrastructure/services";
-import userRepositories from "../infrastructure/repositories/userRepositories";
+import repositories from "../infrastructure/repositories";
 import RegisterUserViaEmail from "./registerUserViaEmail";
 
 const { securityServiceImplementation, uuidServiceImplementation } =
   userServices;
-const { userRepoImplementation } = userRepositories;
+const { userRepoImplementation } = repositories;
 
 const registerUserViaEmail = new RegisterUserViaEmail(
   securityServiceImplementation,
