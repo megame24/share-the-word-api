@@ -3,7 +3,7 @@ import useCases from "../../useCases";
 
 const { registerUserViaEmail } = useCases;
 
-export default class RegisterUserViaEmailController {
+export class RegisterUserViaEmailController {
   static async execute(req: any, res: any, next: any) {
     const { body } = req;
     const registerUserDTO: registerUserDTO = {
@@ -18,7 +18,6 @@ export default class RegisterUserViaEmailController {
       res.status(201);
       return next();
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }

@@ -1,5 +1,5 @@
 import express from "express";
-import RegisterUserViaEmailController from "../../interfaceAdapters/controllers/registerUserViaEmailController";
+import { RegisterUserViaEmailController } from "../../interfaceAdapters/controllers";
 
 const userRouter = express.Router();
 
