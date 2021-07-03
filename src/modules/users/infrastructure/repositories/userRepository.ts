@@ -18,8 +18,7 @@ export class UserRepoImplementation implements UserRepo {
       if (!user) return false;
       return true;
     } catch (error) {
-      console.log(error); // use a better logger
-      throw AppError.internalServerError();
+      throw AppError.internalServerError("Error retrieving email", error);
     }
   }
 
@@ -31,8 +30,7 @@ export class UserRepoImplementation implements UserRepo {
       if (!user) return false;
       return true;
     } catch (error) {
-      console.log(error); // use a better logger
-      throw AppError.internalServerError();
+      throw AppError.internalServerError("Error retrieving username", error);
     }
   }
 
@@ -40,8 +38,7 @@ export class UserRepoImplementation implements UserRepo {
     try {
       await this.UserModel.create(user);
     } catch (error) {
-      console.log(error); // use a better logger
-      throw AppError.internalServerError();
+      throw AppError.internalServerError("Error creating user", error);
     }
   }
 }
