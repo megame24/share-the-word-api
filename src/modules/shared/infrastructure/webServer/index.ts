@@ -22,7 +22,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // error handler
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-  if (!IS_PRODUCTION) console.log(error);
+  if (!IS_PRODUCTION) console.log(error); // explore a better logger
 
   if (error instanceof AppError) {
     return res.status(error.statusCode).json(error.rawError);
