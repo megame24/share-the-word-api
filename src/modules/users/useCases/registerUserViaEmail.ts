@@ -1,5 +1,5 @@
 import User from "../entities/user";
-import AppError from "../../shared/core/AppError";
+import AppError from "../../shared/core/error/AppError";
 import { SecurityService } from "../infrastructure/services/securityService";
 import { UUIDService } from "../infrastructure/services/uuidService";
 import { UserRepo } from "../infrastructure/repositories/userRepository";
@@ -11,7 +11,6 @@ export interface registerUserDTO {
   name: string;
 }
 
-// explore naming this signup use case
 // send verification email after creating user
 
 export default class RegisterUserViaEmail {

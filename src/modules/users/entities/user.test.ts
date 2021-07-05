@@ -1,28 +1,8 @@
+import {
+  SecurityServiceImplementation,
+  UUIDServiceImplementation,
+} from "../../shared/core/test/usersTestUtils";
 import User from "./user";
-import { SecurityService } from "../infrastructure/services/securityService";
-import { UUIDService } from "../infrastructure/services/uuidService";
-
-class SecurityServiceImplementation implements SecurityService {
-  // explore changing this to jest mock function
-  hash(plaintext: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      resolve(`hashed-${plaintext}`);
-    });
-  }
-
-  // explore changing this to jest mock function
-  compare(plaintext: string, hash: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      resolve(true);
-    });
-  }
-}
-
-class UUIDServiceImplementation implements UUIDService {
-  generate(): string {
-    return "this_is_a_random_uuid";
-  }
-}
 
 const validUserProps = {
   name: "Mr. crabs",
@@ -231,7 +211,7 @@ describe("Creating a user entity", () => {
     expect(user.id).toEqual("this_is_a_random_uuid");
     expect(user.name).toEqual(validUserProps.name);
     expect(user.email).toEqual(validUserProps.email);
-    expect(user.password).toEqual(`hashed-${validUserProps.password}`);
+    expect(user.password).toEqual("hashed-password");
     expect(user.username).toEqual(validUserProps.username);
     expect(user.role).toEqual("USER");
     expect(user.verified).toEqual(false);
