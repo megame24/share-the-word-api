@@ -1,10 +1,11 @@
-import { registerUserDTO } from "../../useCases/registerUserViaEmail";
-import useCases from "../../useCases";
-
-const { registerUserViaEmail } = useCases;
+import RegisterUserViaEmail, {
+  registerUserDTO,
+} from "../../useCases/registerUserViaEmail";
 
 export class RegisterUserViaEmailController {
-  static async execute(req: any, res: any, next: any) {
+  constructor(private registerUserViaEmail: RegisterUserViaEmail) {}
+
+  async execute(req: any, res: any, next: any) {
     const { body } = req;
     const registerUserDTO: registerUserDTO = {
       username: body.username,
@@ -14,9 +15,8 @@ export class RegisterUserViaEmailController {
     };
 
     try {
-      await registerUserViaEmail.execute(registerUserDTO);
-      res.status(201);
-      return next();
+      await this.registerUserViaEmail.execute(registerUserDTO);
+      return res.status(201).json("");
     } catch (error) {
       next(error);
     }

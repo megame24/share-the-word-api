@@ -25,7 +25,7 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   if (!IS_PRODUCTION) console.log(error); // explore a better logger
 
   if (error instanceof AppError) {
-    return res.status(error.statusCode).json(error.rawError);
+    return res.status(error.statusCode).json(error.message);
   }
 
   const unhandledError = AppError.internalServerError();
