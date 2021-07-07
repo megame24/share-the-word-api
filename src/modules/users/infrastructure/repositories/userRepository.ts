@@ -1,4 +1,4 @@
-import AppError from "../../../shared/core/error/AppError";
+import AppError from "../../../shared/core/AppError";
 import { UserProps } from "../../entities/user";
 
 export interface UserRepo {

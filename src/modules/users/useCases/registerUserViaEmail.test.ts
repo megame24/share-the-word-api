@@ -1,16 +1,16 @@
 import {
-  SecurityServiceImplementation,
-  UserRepoImplementation,
-  UUIDServiceImplementation,
-} from "../../shared/core/test/usersTestUtils";
-import RegisterUserViaEmail from "./registerUserViaEmail";
+  MockSecurityService,
+  MockUserRepo,
+  MockUUIDService,
+} from "../testUtils";
+import { RegisterUserViaEmailImplementation } from "./registerUserViaEmail";
 
-const userRepoImplementation = new UserRepoImplementation();
+const mockUserRepo = new MockUserRepo();
 
-const registerUserViaEmail = new RegisterUserViaEmail(
-  new SecurityServiceImplementation(),
-  new UUIDServiceImplementation(),
-  userRepoImplementation
+const registerUserViaEmail = new RegisterUserViaEmailImplementation(
+  new MockSecurityService(),
+  new MockUUIDService(),
+  mockUserRepo
 );
 
 const registerUserDTO = {
@@ -56,7 +56,7 @@ describe("Registering a user via email", () => {
       error = err;
     }
 
-    expect(userRepoImplementation.create).toBeCalledWith({
+    expect(mockUserRepo.create).toBeCalledWith({
       id: "this_is_a_random_uuid",
       name: "Mr. Taiemo",
       email: "email@test.com",

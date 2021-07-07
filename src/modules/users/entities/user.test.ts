@@ -1,7 +1,4 @@
-import {
-  SecurityServiceImplementation,
-  UUIDServiceImplementation,
-} from "../../shared/core/test/usersTestUtils";
+import { MockSecurityService, MockUUIDService } from "../testUtils";
 import User from "./user";
 
 const validUserProps = {
@@ -15,8 +12,8 @@ const validUserProps = {
 const createUser = (userProps: any) => {
   return User.create(
     userProps,
-    new SecurityServiceImplementation(),
-    new UUIDServiceImplementation()
+    new MockSecurityService(),
+    new MockUUIDService()
   );
 };
 
@@ -228,8 +225,8 @@ describe("Creating a user entity", () => {
           username: validUserProps.username,
           email: validUserProps.email,
         },
-        new SecurityServiceImplementation(),
-        new UUIDServiceImplementation(),
+        new MockSecurityService(),
+        new MockUUIDService(),
         {
           isPasswordHashed: false,
           isPasswordRequired: false,
