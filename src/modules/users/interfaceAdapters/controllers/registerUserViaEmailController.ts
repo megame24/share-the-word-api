@@ -1,5 +1,6 @@
-import RegisterUserViaEmail, {
-  registerUserDTO,
+import {
+  RegisterUserViaEmail,
+  RegisterUserDTO,
 } from "../../useCases/registerUserViaEmail";
 
 export class RegisterUserViaEmailController {
@@ -7,7 +8,7 @@ export class RegisterUserViaEmailController {
 
   async execute(req: any, res: any, next: any) {
     const { body } = req;
-    const registerUserDTO: registerUserDTO = {
+    const registerUserDTO: RegisterUserDTO = {
       username: body.username,
       password: body.password,
       email: body.email,
