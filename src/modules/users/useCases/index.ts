@@ -1,18 +1,12 @@
-import userServices from "../infrastructure/services";
-import repositories from "../infrastructure/repositories";
-import { RegisterUserViaEmailImplementation } from "./registerUserViaEmail";
+import {
+  securityServiceImpl,
+  uuidServiceImpl,
+} from "../infrastructure/services";
+import { userRepoImpl } from "../infrastructure/repositories";
+import { RegisterUserViaEmailImpl } from "./registerUserViaEmail";
 
-const { securityServiceImplementation, uuidServiceImplementation } =
-  userServices;
-const { userRepoImplementation } = repositories;
-
-const registerUserViaEmailImplementation =
-  new RegisterUserViaEmailImplementation(
-    securityServiceImplementation,
-    uuidServiceImplementation,
-    userRepoImplementation
-  );
-
-export default {
-  registerUserViaEmailImplementation,
-};
+export const registerUserViaEmailImpl = new RegisterUserViaEmailImpl(
+  securityServiceImpl,
+  uuidServiceImpl,
+  userRepoImpl
+);

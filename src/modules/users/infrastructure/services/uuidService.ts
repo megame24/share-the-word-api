@@ -2,7 +2,7 @@ export interface UUIDService {
   generate: () => string;
 }
 
-export class UUIDServiceImplementation implements UUIDService {
+export class UUIDServiceImpl implements UUIDService {
   constructor(private uuidv4: any) {}
 
   generate(): string {
