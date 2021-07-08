@@ -1,6 +1,7 @@
-import { RegisterUserViaEmailController } from "./registerUserViaEmailController";
+import RegisterUserViaEmailController from "./registerUserViaEmailController";
 import { MockRegisterUserViaEmail } from "../../testUtils";
 import AppError from "../../../shared/core/AppError";
+import { next, res } from "../../../shared/core/testUtils";
 
 const mockRegisterUserViaEmail = new MockRegisterUserViaEmail();
 const registerUserViaEmailController = new RegisterUserViaEmailController(
@@ -14,12 +15,6 @@ const req = {
     password: "P@ssw0rd",
     name: "Mr. Taiemo",
   },
-};
-const next = jest.fn();
-const res = {
-  status: jest.fn().mockReturnValue({
-    json: jest.fn(),
-  }),
 };
 
 describe("Register user via email controller test", () => {

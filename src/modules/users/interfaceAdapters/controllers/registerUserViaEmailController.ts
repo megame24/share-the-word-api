@@ -3,7 +3,7 @@ import {
   RegisterUserDTO,
 } from "../../useCases/registerUserViaEmail";
 
-export class RegisterUserViaEmailController {
+export default class RegisterUserViaEmailController {
   constructor(private registerUserViaEmail: RegisterUserViaEmail) {}
 
   async execute(req: any, res: any, next: any) {

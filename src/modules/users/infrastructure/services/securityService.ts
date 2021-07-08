@@ -3,7 +3,7 @@ export interface SecurityService {
   compare: (plainText: string, hash: string) => Promise<boolean>;
 }
 
-export class SecurityServiceImplementation implements SecurityService {
+export class SecurityServiceImpl implements SecurityService {
   private saltRounds = 10;
 
   constructor(private bcrypt: any) {}

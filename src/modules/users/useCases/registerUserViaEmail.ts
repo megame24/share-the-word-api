@@ -18,9 +18,7 @@ export interface RegisterUserViaEmail extends UseCase<RegisterUserDTO, void> {
 
 // send verification email after creating user
 
-export class RegisterUserViaEmailImplementation
-  implements RegisterUserViaEmail
-{
+export class RegisterUserViaEmailImpl implements RegisterUserViaEmail {
   constructor(
     private securityService: SecurityService,
     private uuidService: UUIDService,

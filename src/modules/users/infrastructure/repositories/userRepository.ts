@@ -7,7 +7,7 @@ export interface UserRepo {
   create: (user: UserProps) => void;
 }
 
-export class UserRepoImplementation implements UserRepo {
+export class UserRepoImpl implements UserRepo {
   constructor(private UserModel: any) {}
 
   async emailExists(email = ""): Promise<boolean> {
