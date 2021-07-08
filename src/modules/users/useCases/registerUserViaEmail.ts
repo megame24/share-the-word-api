@@ -3,7 +3,7 @@ import AppError from "../../shared/core/AppError";
 import { SecurityService } from "../infrastructure/services/securityService";
 import { UUIDService } from "../infrastructure/services/uuidService";
 import { UserRepo } from "../infrastructure/repositories/userRepository";
-import { UseCase } from "../types";
+import { UseCase } from "../../shared/core/types";
 
 export interface RegisterUserDTO {
   username: string;

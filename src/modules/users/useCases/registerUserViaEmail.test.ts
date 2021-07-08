@@ -1,9 +1,9 @@
+import { RegisterUserViaEmailImplementation } from "./registerUserViaEmail";
 import {
   MockSecurityService,
   MockUserRepo,
   MockUUIDService,
 } from "../testUtils";
-import { RegisterUserViaEmailImplementation } from "./registerUserViaEmail";
 
 const mockUserRepo = new MockUserRepo();
 

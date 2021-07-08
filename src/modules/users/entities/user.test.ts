@@ -1,5 +1,5 @@
-import { MockSecurityService, MockUUIDService } from "../testUtils";
 import User from "./user";
+import { MockSecurityService, MockUUIDService } from "../testUtils";
 
 const validUserProps = {
   name: "Mr. crabs",
