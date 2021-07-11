@@ -4,6 +4,7 @@ import { SecurityService } from "../infrastructure/services/securityService";
 import { UUIDService } from "../infrastructure/services/uuidService";
 import { UserRepo } from "../infrastructure/repositories/userRepository";
 import { UseCase } from "../../shared/core/types";
+import { EmailService } from "../../shared/infrastructure/services/emailService";
 
 export interface RegisterUserDTO {
   username: string;
@@ -22,7 +23,8 @@ export class RegisterUserViaEmailImpl implements RegisterUserViaEmail {
   constructor(
     private securityService: SecurityService,
     private uuidService: UUIDService,
-    private userRepo: UserRepo
+    private userRepo: UserRepo,
+    private emailService: EmailService
   ) {}
 
   async execute(registerUserDTO: RegisterUserDTO) {
@@ -52,5 +54,7 @@ export class RegisterUserViaEmailImpl implements RegisterUserViaEmail {
       role: user.role,
       verified: user.verified,
     });
+
+    await this.emailService.sendWelcomeEmail(user.email);
   }
 }
