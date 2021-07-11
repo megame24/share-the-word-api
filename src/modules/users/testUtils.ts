@@ -1,3 +1,4 @@
+import { EmailService } from "../shared/infrastructure/services/emailService";
 import { UserRepo } from "./infrastructure/repositories/userRepository";
 import { SecurityService } from "./infrastructure/services/securityService";
 import { UUIDService } from "./infrastructure/services/uuidService";
@@ -33,3 +34,7 @@ export const mockUserModel = {
   findOne: jest.fn(),
   create: jest.fn(),
 };
+
+export class MockEmailService implements EmailService {
+  sendWelcomeEmail = jest.fn();
+}

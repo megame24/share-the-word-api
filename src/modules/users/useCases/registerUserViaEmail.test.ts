@@ -3,6 +3,7 @@ import {
   MockSecurityService,
   MockUserRepo,
   MockUUIDService,
+  MockEmailService,
 } from "../testUtils";
 
 const mockUserRepo = new MockUserRepo();
@@ -10,7 +11,8 @@ const mockUserRepo = new MockUserRepo();
 const registerUserViaEmail = new RegisterUserViaEmailImpl(
   new MockSecurityService(),
   new MockUUIDService(),
-  mockUserRepo
+  mockUserRepo,
+  new MockEmailService()
 );
 
 const registerUserDTO = {

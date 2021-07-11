@@ -1,9 +1,9 @@
 export interface EmailService {
-  sendMail: () => void;
+  sendWelcomeEmail: (email: string) => void;
 }
 
 export class EmailServiceImpl implements EmailService {
-  sendMail() {
+  async sendWelcomeEmail(email: string) {
     // code goes here ;)
   }
 }
